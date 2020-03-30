@@ -14,6 +14,7 @@ jobs:
     - heroku/install
     - run:
        command: |
+        heroku 
     - heroku/deploy-via-git
 
 workflows:
