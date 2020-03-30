@@ -10,8 +10,8 @@ jobs:
   environment:
    HEROKU_APP_NAME: "recognitionn"
   steps:
-    - checkout
     - python/load-cache
+    - checkout
     - heroku/install
     - heroku/deploy-via-git
     - python/save-cache
