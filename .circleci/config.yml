@@ -11,6 +11,9 @@ jobs:
    HEROKU_APP_NAME: "recognitionn"
   steps:
     - checkout
+    - run:
+       command: |
+       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" 
     - python/load-cache
     - heroku/install
     - heroku/deploy-via-git
