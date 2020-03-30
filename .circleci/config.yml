@@ -6,15 +6,16 @@ orbs:
 
 jobs:
  herokuDeploy:
-  executor: python/default
+  executor: heroku/default
   environment:
    HEROKU_APP_NAME: "recognitionn"
   steps:
-    - python/load-cache
     - checkout
     - heroku/install
+    - run:
+       command: |
+        heroku 
     - heroku/deploy-via-git
-    - python/save-cache
 
 workflows:
   main:
