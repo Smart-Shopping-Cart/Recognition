@@ -1,5 +1,5 @@
-from labels import Labels
-from ImagePrediction import ImagePrediction
+from src.service.framesExtraction.ImagePrediction import ImagePrediction
+from src.service.framesExtraction.labels import Labels
 
 
 class Recognition:

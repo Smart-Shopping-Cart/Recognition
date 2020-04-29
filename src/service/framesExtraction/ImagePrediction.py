@@ -1,5 +1,6 @@
 import json
 
+
 class ImagePrediction:
     def __init__(self, starting_index, end_index, predicted_image):
         self.starting_index = starting_index

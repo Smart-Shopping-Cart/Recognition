@@ -3,9 +3,10 @@ from collections import deque
 import cv2
 import threading
 import os
-from labels import Labels
 
 # path of resulted extracted frames
+from src.service.framesExtraction.labels import Labels
+
 path = "C:" + os.path.sep + "Users" + os.path.sep + "Aviram" + os.path.sep + \
        "PycharmProjects" + os.path.sep + "helloWorld" + os.path.sep + "Result"
 
