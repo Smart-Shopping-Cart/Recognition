@@ -1,5 +1,9 @@
 from flask import Flask, render_template
 
+from src.delegates.addCameraDelegate import addCameraDelegate
+from src.delegates.getAllCamerasDelegate import getAllCamerasDelegate
+from src.delegates.removeCameraDelegate import removeCameraDelegate
+
 app = Flask(__name__)
 
 
@@ -8,24 +12,19 @@ def index():
     return 'blank'
 
 
-@app.route("/link")
-def link():
-    return "linked"
+@app.route("/addCamera")
+def addCamera():
+    return addCameraDelegate.execute()
 
 
-@app.route("/hello")
-def hello():
-    return "hello world"
+@app.route("/removeCamera")
+def removeCamera():
+    return removeCameraDelegate.execute()
 
 
-@app.route("/load")
-def load():
-    return "loaded"
-
-
-@app.route("/unlink")
-def unlink():
-    return "unlinked"
+@app.route("/getAllCameras")
+def getAllCameras():
+    return getAllCamerasDelegate.execute()
 
 
 if __name__ == "__main__":
