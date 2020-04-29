@@ -1,7 +1,6 @@
 import os
 import numpy as np
 import torch
-import json
 
 
 class Labels:
@@ -24,10 +23,10 @@ class Labels:
             self.labels = [red, blue, yellow]
 
     # get the predicted lable from the NN and append the label into labels array if the labels fits the requierments
-    def insert_label(self, frame_to_insect, frame_number):
+    def insert_label(self, frame_to_insect):
         predicted_label = self.im_predict(frame_to_insect)
         if predicted_label in self.labels:
-            self.add_label(predicted_label, frame_number)
+            self.add_label(predicted_label)
             return True
 
         else:
@@ -64,8 +63,8 @@ class Labels:
         self.model.train()
         return names[index]
 
-    def add_label(self, predicted_label, frame_number):
-        self.predicted_labels.append(predicted_label, frame_number)
+    def add_label(self, predicted_label):
+        self.predicted_labels.append(predicted_label)
 
     @staticmethod
     def get_label_from_label_arr(self, label_index, is_first):
@@ -74,7 +73,3 @@ class Labels:
             if is_first:
                 if predicted_label != self.unknown:
                     return self.predicted_labels[label_index]
-
-    def dump_json(self):
-        with open('predictions.txt', 'w') as outfile:
-            json.dump(self.predicted_labels, outfile)
