@@ -25,10 +25,15 @@ class FrameExtractor:
         cap.set(4, 848)
         pts = deque(maxlen=64)
 
+        frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
         ret, frame1 = cap.read()
-        frame1 = cv2.rotate(frame1, cv2.ROTATE_90_CLOCKWISE)
         ret, frame2 = cap.read()
-        frame2 = cv2.rotate(frame2, cv2.ROTATE_90_CLOCKWISE)
+
+        if frame_width > frame_height:
+            frame1 = cv2.rotate(frame1, cv2.ROTATE_90_CLOCKWISE)
+            frame2 = cv2.rotate(frame2, cv2.ROTATE_90_CLOCKWISE)
 
         while cap.isOpened():
             # finds the frame contours based on the diff between the current frame and the prev frame
@@ -42,7 +47,8 @@ class FrameExtractor:
             ret, frame2 = cap.read()
             if ret is False:
                 break
-            frame2 = cv2.rotate(frame2, cv2.ROTATE_90_CLOCKWISE)
+            if frame_width > frame_height:
+                frame2 = cv2.rotate(frame2, cv2.ROTATE_90_CLOCKWISE)
 
             if cv2.waitKey(40) == 27:
                 break
@@ -93,7 +99,6 @@ class FrameExtractor:
                     if i_pts[0][1] - i_pts[1][1] < 0:
                         direction = 1
 
-                    if Labels.insert_label(self.Labels, crop_img):
                         self.image_number += 1
                         i_imagelist.append((str(self.image_number), str(direction)))
                         cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)
