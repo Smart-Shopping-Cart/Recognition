@@ -8,7 +8,8 @@ from labels import Labels
 from Recognition import Recognition
 
 labels = Labels([])
-f = FrameExtractor("../vid012.mp4", labels)
+f = FrameExtractor("C:/Users/Aviram/PycharmProjects/helloWorld/vid21.mp4", labels)
 recognition = Recognition()
 
 f.extract()
+labels.dump_json()

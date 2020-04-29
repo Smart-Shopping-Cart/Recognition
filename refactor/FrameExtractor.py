@@ -99,6 +99,7 @@ class FrameExtractor:
                     if i_pts[0][1] - i_pts[1][1] < 0:
                         direction = 1
 
+                        Labels.insert_label(self.Labels, crop_img, self.image_number)
                         self.image_number += 1
                         i_imagelist.append((str(self.image_number), str(direction)))
                         cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)

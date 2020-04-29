@@ -1,3 +1,6 @@
+import json
+
+
 class Labels:
     # in case we want to self modify yhe labels arr we will send it
     # also we have default values
@@ -16,10 +19,10 @@ class Labels:
             self.labels = [red, blue, yellow]
 
     # get the predicted lable from the NN and append the label into labels array if the labels fits the requierments
-    def insert_label(self, frame_to_insect):
+    def insert_label(self, frame_to_insect, frame_number):
         predicted_label = self.get_yoni_labels(frame_to_insect)
         if predicted_label in self.labels:
-            self.add_label(predicted_label)
+            self.add_label(predicted_label, frame_number)
             return True
 
         else:
@@ -32,8 +35,8 @@ class Labels:
     def get_yoni_labels(self, frame_to_insect):
         return "blue ball"
 
-    def add_label(self, predicted_label):
-        self.predicted_labels.append(predicted_label)
+    def add_label(self, predicted_label, frame_number):
+        self.predicted_labels.append((predicted_label, frame_number))
 
     @staticmethod
     def get_label_from_label_arr(self, label_index, is_first):
@@ -42,3 +45,7 @@ class Labels:
             if is_first:
                 if predicted_label != self.unknown:
                     return self.predicted_labels[label_index]
+
+    def dump_json(self):
+        with open('predictions.txt', 'w') as outfile:
+            json.dump(self.predicted_labels, outfile)
