@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="31dae94e-427a-482e-b225-566ad49d6203" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/refactor/FrameExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/refactor/FrameExtractor.py" afterDir="false" />
-    </list>
+    <list default="true" id="31dae94e-427a-482e-b225-566ad49d6203" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +19,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/refactor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Aviram\PycharmProjects\helloWorld\refactor\Recognition\refactor" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="moshenDetecto" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
