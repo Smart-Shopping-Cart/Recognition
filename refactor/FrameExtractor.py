@@ -3,7 +3,7 @@ from collections import deque
 import cv2
 import threading
 import os
-from refactor.labels import Labels
+from labels import Labels
 
 # path of resulted extracted frames
 path = "C:" + os.path.sep + "Users" + os.path.sep + "Aviram" + os.path.sep + \

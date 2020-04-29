@@ -1,10 +1,3 @@
-import json
-from collections import deque
-import cv2
-import threading
-import os
-
-
 class Labels:
     # in case we want to self modify yhe labels arr we will send it
     # also we have default values

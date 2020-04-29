@@ -1,9 +1,4 @@
 import json
-from collections import deque
-import cv2
-import threading
-import os
-
 
 class ImagePrediction:
     def __init__(self, starting_index, end_index, predicted_image):

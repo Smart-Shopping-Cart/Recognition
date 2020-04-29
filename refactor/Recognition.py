@@ -1,10 +1,5 @@
-import json
-from collections import deque
-import cv2
-import threading
-import os
-from refactor.labels import Labels
-from refactor.ImagePrediction import ImagePrediction
+from labels import Labels
+from ImagePrediction import ImagePrediction
 
 
 class Recognition:
