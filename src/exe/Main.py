@@ -7,3 +7,4 @@ f = FrameExtractor("../vid012.mp4", labels)
 recognition = Recognition()
 
 f.extract()
+labels.dump_json()
