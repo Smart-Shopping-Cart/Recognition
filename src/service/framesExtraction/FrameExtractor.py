@@ -7,8 +7,8 @@ import os
 # path of resulted extracted frames
 from src.service.framesExtraction.labels import Labels
 
-path = "C:" + os.path.sep + "Users" + os.path.sep + "Aviram" + os.path.sep + \
-       "PycharmProjects" + os.path.sep + "helloWorld" + os.path.sep + "Result"
+path = "C:" + os.path.sep + "Users" + os.path.sep + "yonatan" + os.path.sep + \
+       "Desktop" + os.path.sep + "Result555"
 
 
 class FrameExtractor:
@@ -48,7 +48,7 @@ class FrameExtractor:
             if cv2.waitKey(40) == 27:
                 break
 
-        with open('output.txt', 'w') as outfile:
+        with open(path + os.path.sep + 'output.txt', 'w') as outfile:
             json.dump(self.image_list, outfile)
 
         cv2.destroyAllWindows()
@@ -91,9 +91,12 @@ class FrameExtractor:
                 if len(i_pts) > 1 and self.frame_counter % 2 == 0:
                     if i_pts[0][1] - i_pts[1][1] > 0:
                         direction = -1
-                    if i_pts[0][1] - i_pts[1][1] < 0:
+                        Labels.insert_label(self.Labels, crop_img, self.image_number)
+                        self.image_number += 1
+                        i_imagelist.append((str(self.image_number), str(direction)))
+                        cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)
+                    elif i_pts[0][1] - i_pts[1][1] < 0:
                         direction = 1
-
                         Labels.insert_label(self.Labels, crop_img, self.image_number)
                         self.image_number += 1
                         i_imagelist.append((str(self.image_number), str(direction)))
