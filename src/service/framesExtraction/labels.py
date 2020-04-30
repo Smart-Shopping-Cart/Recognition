@@ -65,7 +65,6 @@ class Labels:
         elif index1 == 1 and value - value1 < 0.015:
             index = index1
         self.model.train()
-        print(names[index])
         return names[index]
 
     def add_label(self, predicted_label, frame_number):

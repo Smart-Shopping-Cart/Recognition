@@ -7,8 +7,8 @@ import os
 # path of resulted extracted frames
 from src.service.framesExtraction.labels import Labels
 
-path = "C:" + os.path.sep + "Users" + os.path.sep + "yonatan" + os.path.sep + \
-       "Desktop" + os.path.sep + "Result555"
+path = "C:" + os.path.sep + "Users" + os.path.sep + "Aviram" + os.path.sep + \
+       "PycharmProjects" + os.path.sep + "helloWorld" + os.path.sep + "Result"
 
 
 class FrameExtractor:
