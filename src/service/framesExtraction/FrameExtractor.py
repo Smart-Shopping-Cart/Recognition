@@ -3,12 +3,12 @@ from collections import deque
 import cv2
 import threading
 import os
+import time
 
 # path of resulted extracted frames
 from src.service.framesExtraction.labels import Labels
 
-path = "C:" + os.path.sep + "Users" + os.path.sep + "Aviram" + os.path.sep + \
-       "PycharmProjects" + os.path.sep + "helloWorld" + os.path.sep + "Result"
+path = ".." + os.path.sep + ".." + os.path.sep + "result" + os.path.sep + "frames"
 
 
 class FrameExtractor:
@@ -17,7 +17,7 @@ class FrameExtractor:
         self.video_stream_path = video_path
         self.image_list = []
         self.frame_counter = 0
-        self.image_number = 0
+        self.image_number = 1
         self.Labels = i_Labels
 
     def extract(self):
@@ -63,8 +63,6 @@ class FrameExtractor:
         return cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     def identify_and_write(self, i_contours, i_frame1, i_pts, i_imagelist):
-        self.frame_counter
-        self.image_number
         if len(i_contours) > 0:
             # find the largest contour in the mask, then use
             # the following filters to get the correct frames
@@ -91,21 +89,25 @@ class FrameExtractor:
                 if len(i_pts) > 1 and self.frame_counter % 2 == 0:
                     if i_pts[0][1] - i_pts[1][1] > 0:
                         direction = -1
-                        Labels.insert_label(self.Labels, crop_img, self.image_number)
-                        self.image_number += 1
-                        i_imagelist.append((str(self.image_number), str(direction)))
-                        cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)
                     elif i_pts[0][1] - i_pts[1][1] < 0:
                         direction = 1
+                    else:
+                        direction = 0
+
+                    if direction != 0:
                         Labels.insert_label(self.Labels, crop_img, self.image_number)
                         self.image_number += 1
                         i_imagelist.append((str(self.image_number), str(direction)))
                         cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)
-                    else:
-                        print("this frame is not good")
 
                     # ==============================================
                     # activate recognize
 
             cv2.rectangle(i_frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.circle(i_frame1, (x, y + h), 5, (0, 0, 255), -1)
+
+    def calculate_labels(self):
+        labels_arr = self.Labels.predicted_labels
+        for i in range(len(labels_arr) - 2):
+            if labels_arr[i + 1][2] - labels_arr[i][2] > 0.35:
+                print(i)

@@ -3,8 +3,9 @@ import numpy as np
 import torch
 import json
 import cv2
-path = "C:" + os.path.sep + "Users" + os.path.sep + "yonatan" + os.path.sep + \
-       "Desktop" + os.path.sep + "Result555"
+import time
+
+path = ".." + os.path.sep + ".." + os.path.sep + "result" + os.path.sep + "predictions"
 
 
 class Labels:
@@ -13,8 +14,8 @@ class Labels:
     def __init__(self, i_labels):
         self.predicted_labels = []
         self.unknown = "unknown"
-        self.model = torch.load(".." + os.path.sep + ".." + os.path.sep + "savedNet" + os.path.sep + "model.dat"). \
-            to('cpu')
+        self.model = torch.load(".." + os.path.sep + ".." + os.path.sep + "savedNet" + os.path.sep + "model.dat",
+                                map_location=torch.device('cpu'))
         if len(i_labels) != 0:
             self.labels = i_labels
         else:
@@ -29,12 +30,12 @@ class Labels:
     def insert_label(self, frame_to_insect, frame_number):
         predicted_label = self.im_predict(frame_to_insect)
         if predicted_label in self.labels:
-            self.add_label(predicted_label, frame_number)
+            self.add_label(predicted_label, frame_number, time.perf_counter())
             return True
 
         else:
             if len(self.labels) > 3 and self.labels[len(self.labels) - 3] != self.unknown:
-                self.add_label(self.unknown)
+                self.add_label(self.unknown, frame_number, time.perf_counter())
                 return True
 
         return False
@@ -67,10 +68,9 @@ class Labels:
         self.model.train()
         return names[index]
 
-    def add_label(self, predicted_label, frame_number):
-        self.predicted_labels.append((predicted_label, frame_number))
+    def add_label(self, predicted_label, frame_number, i_time):
+        self.predicted_labels.append((predicted_label, frame_number, i_time))
 
-    @staticmethod
     def get_label_from_label_arr(self, label_index, is_first):
         if len(self.labels) > label_index:
             predicted_label = self.predicted_labels[label_index]
@@ -79,5 +79,5 @@ class Labels:
                     return self.predicted_labels[label_index]
 
     def dump_json(self):
-        with open(path + os.path.sep +'predictions.txt', 'w') as outfile:
+        with open(path + os.path.sep + 'predictions.json', 'w') as outfile:
             json.dump(self.predicted_labels, outfile)
