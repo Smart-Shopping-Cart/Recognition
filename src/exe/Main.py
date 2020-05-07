@@ -3,11 +3,9 @@ from service.framesExtraction.Recognition import Recognition
 from service.framesExtraction.labels import Labels
 import threading
 
-
-labels = Labels([])
+recognition = Recognition()
+labels = Labels([], recognition)
 f = FrameExtractor("../../resources/vid22.mp4", labels)
-recognition = Recognition(labels)
 
 f.extract()
-f.calculate_labels()
 labels.dump_json()

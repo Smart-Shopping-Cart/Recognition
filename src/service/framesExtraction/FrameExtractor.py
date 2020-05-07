@@ -17,7 +17,7 @@ class FrameExtractor:
         self.video_stream_path = video_path
         self.image_list = []
         self.frame_counter = 0
-        self.image_number = 1
+        self.image_number = 0
         self.Labels = i_Labels
 
     def extract(self):
@@ -95,19 +95,13 @@ class FrameExtractor:
                         direction = 0
 
                     if direction != 0:
-                        Labels.insert_label(self.Labels, crop_img, self.image_number)
                         self.image_number += 1
-                        i_imagelist.append((str(self.image_number), str(direction)))
+                        Labels.insert_label(self.Labels, crop_img, self.image_number, str(direction))
                         cv2.imwrite(path + "/%d" % self.image_number + '.jpg', crop_img)
-
-                    # ==============================================
-                    # activate recognize
+            else:
+                self.Labels.check_static_frame(time.perf_counter(), self.image_number)
 
             cv2.rectangle(i_frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.circle(i_frame1, (x, y + h), 5, (0, 0, 255), -1)
-
-    def calculate_labels(self):
-        labels_arr = self.Labels.predicted_labels
-        for i in range(len(labels_arr) - 2):
-            if labels_arr[i + 1][2] - labels_arr[i][2] > 0.35:
-                print(i)
+        else:
+            self.Labels.check_static_frame(time.perf_counter(), self.image_number)

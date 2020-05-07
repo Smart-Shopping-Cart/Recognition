@@ -2,23 +2,21 @@ import json
 
 
 class ImagePrediction:
-    def __init__(self, starting_index, end_index, predicted_image):
+    def __init__(self, starting_index, end_index, predicted_image, image_list):
         self.starting_index = starting_index
         self.end_index = end_index
         self.predicted_image = predicted_image
+        self.image_list = image_list
         self.direction = self.find_direction(starting_index, end_index)
 
     def percentage(self, part, whole):
         return 100 * float(part) / float(whole)
 
     def find_direction(self, i_start, i_end):
-        with open('output.txt') as json_file:
-            data = json.load(json_file)
-
         count_south = 0
         count_north = 0
 
-        for (num, direction) in data:
+        for (num, direction) in self.image_list:
             if i_start <= int(num) <= i_end:
                 if int(direction) == 1:
                     count_north += 1
