@@ -86,5 +86,5 @@ db.sqlite3
 
 
 .idea/
-resources
-result
+resources/
+result/
