@@ -21,6 +21,8 @@ class FrameExtractor:
         self.Labels = i_Labels
 
     def extract(self):
+        start = time.perf_counter()
+        print(start)
         cap = cv2.VideoCapture(self.video_stream_path)
         cap.set(3, 480)
         cap.set(4, 848)
