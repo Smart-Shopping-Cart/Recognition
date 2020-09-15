@@ -1,7 +1,10 @@
-class getAllCamerasDelegate():
+from service.camerasManager.CameraManager import manager
+
+
+class getAllCamerasDelegate:
     def __init__(self):
         pass
 
     @classmethod
     def execute(cls):
-        pass
+        return manager.workingCameras.keys()

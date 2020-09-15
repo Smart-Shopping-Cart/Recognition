@@ -1,3 +1,4 @@
+requests
 cv2
 torch
 Flask==1.1.1
