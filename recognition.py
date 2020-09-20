@@ -22,9 +22,9 @@ def getAllCameras():
     return json.dumps(list(ga.getAllCamerasDelegate.execute())), 200, {'ContentType': 'application/json'}
 
 
-@app.route("/removeCamera/<address>", methods=["DELETE"])
-def removeCamera(address):
-    return r.removeCameraDelegate.execute(address)
+@app.route("/removeCamera/<id>", methods=["DELETE"])
+def removeCamera(id):
+    return r.removeCameraDelegate.execute(id)
 
 
 if __name__ == "__main__":

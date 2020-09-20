@@ -8,9 +8,10 @@ from gateways.cartHandlingApi import CartHandlingApi
 
 
 class StreamProcessor:
-    def __init__(self, cap, cameraAddress):
+    def __init__(self, cap, cameraAddress, cameraId):
         self.cap = cap
         self.cameraAddress = cameraAddress
+        self.cameraId = cameraId
         self.lastImage = None
         self.lastLocation = None
         self.model = torch.load("savedNet" + os.path.sep + "model.dat",
@@ -95,11 +96,11 @@ class StreamProcessor:
         contextDirection = max(self.contextDirectionCount[contextLabel],
                                key=self.contextDirectionCount[contextLabel].get)
         if contextDirection is "IN":
-            print(self.cameraAddress, contextLabel, contextDirection)
-            self.cartHandlingApi.addProduct(self.cameraAddress, contextLabel)
+            self.cartHandlingApi.addProductAsync(self.cameraId, contextLabel)
+            print(self.cameraId, contextLabel, contextDirection)
         if contextDirection is "OUT":
-            print(self.cameraAddress, contextLabel, contextDirection)
-            self.cartHandlingApi.removeProduct(self.cameraAddress, contextLabel)
+            self.cartHandlingApi.removeProductAsync(self.cameraId, contextLabel)
+            print(self.cameraId, contextLabel, contextDirection)
         self.resetContext()
 
     def resetContext(self):

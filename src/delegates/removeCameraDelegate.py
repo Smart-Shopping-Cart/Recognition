@@ -7,6 +7,6 @@ class removeCameraDelegate:
         pass
 
     @classmethod
-    def execute(cls, address):
-        manager.stopStream(address)
+    def execute(cls, id):
+        manager.stopStream(id)
         return json.dumps({'massage': "camera removed successfully"}), 200, {'ContentType': 'application/json'}
